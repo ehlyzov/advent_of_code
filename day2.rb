@@ -67,6 +67,12 @@ puts code.map { |cipher| decoder << cipher }.join('')
 
 # Day 2
 
+# I plan to code each letter as integer in the following way:
+# A - 10
+# B - 11
+# C - 12
+# D - 13
+# Using this schema, I need nothing more complex than an arithmetic rules.
 class InsaneBathRoomCipherDecoder < BathRoomCipherDecoder
   def U
     case @code
@@ -96,10 +102,6 @@ class InsaneBathRoomCipherDecoder < BathRoomCipherDecoder
     when 1, 11
       @code += 2
     end
-  end
-
-  def initialize(code = 5)
-    @code = code
   end
 
   def code

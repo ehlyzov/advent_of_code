@@ -65,8 +65,7 @@ reader.run!(easter_bunny_hq_map)
 puts reader.distance
 
 
-# To solve second part of the puzzle the class can be extended to return location after each command.
-# It can be easily represented as list of locations by traversing given path step by step.
+# To solve a second part of the puzzle the class can be extended to return location after each step. I decided just to return an enumerator and implement logic outside.
 # Instead some linear geometry algorithms can be used here.
 class TraceableTaxiCabNotationReader < TaxiCabNotationReader
 

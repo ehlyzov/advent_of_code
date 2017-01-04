@@ -1,13 +1,21 @@
+# Day 4: Security Through Obscurity http://adventofcode.com/2016/day/4
+
+# Just a namespace for `read` function.
 module CodeReader
 
+  # Not a strict pattern, but enough for the task
   PATTERN = /(?<encrypted_name>[a-z\-]+)\-(?<section_id>\d+)\[(?<checksum>[a-z]{5})\]/
 
+  # Factory function. Expect a string with a code
+  # Assumption: string must contain exactly one code
   def self.read(string)
     match = PATTERN.match(string)
     Code.new(match[:encrypted_name], match[:section_id], match[:checksum])
   end
 end
 
+# The class for represent a code. Encapsulates utility functions 
+# to check if the code is real or not.
 class Code
   attr_reader :sector_id
 
@@ -40,6 +48,7 @@ end
 require 'test/unit'
 include Test::Unit::Assertions
 
+# extracted examples from the task description
 assert_equal(true, CodeReader.read("aaaaa-bbb-z-y-x-123[abxyz]").real?)
 assert_equal(true, CodeReader.read("a-b-c-d-e-f-g-h-987[abcde]").real?)
 assert_equal(true, CodeReader.read("not-a-real-room-404[oarel]").real?)
@@ -52,6 +61,7 @@ end.tap do |sum|
   puts "[Day 4][Task 1] Sum = #{sum}"
 end
 
+# Extend class with decode function. Very unsafe, but handy. That's ruby.
 class Code
   def decode
     @encrypted_name.split('-').map do |name_part|
@@ -62,6 +72,7 @@ class Code
   end
 end
 
+# extracted from the task description
 assert_equal("very encrypted name", Code.new("qzmt-zixmtkozy-ivhz", 343, "").decode)
 
 NORTHPOLE_RE = /.*north.*pole.*/
